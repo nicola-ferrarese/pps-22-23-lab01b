@@ -3,45 +3,30 @@ package e1;
 import java.util.*;
 
 public class LogicsImpl implements Logics {
-	
+
 	private Pair<Integer,Integer> pawn;
 	private Pair<Integer,Integer> knight;
-	private final Random random = new Random();
 	private final int size;
-	 
-    public LogicsImpl(int size){
-    	this.size = size;
-        this.pawn = this.randomEmptyPosition();
-        this.knight = this.randomEmptyPosition();	
-    }
-    
-	private final Pair<Integer,Integer> randomEmptyPosition(){
-    	Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
-    	// the recursive call below prevents clash with an existing pawn
-    	return this.pawn!=null && this.pawn.equals(pos) ? randomEmptyPosition() : pos;
-    }
+	private final PositionGenerator positionGenerator = new PositionGeneratorImpl(new Random());
+	public LogicsImpl(int size) {
+		this.size = size;
+		this.pawn = positionGenerator.generateRandomPosition(size, null);
+		this.knight = positionGenerator.generateRandomPosition(size, this.pawn);
+	}
 
 	@Override
 	public boolean hit(int row, int col) {
 		if (row<0 || col<0 || row >= this.size || col >= this.size) {
 			throw new IndexOutOfBoundsException();
 		}
-		// Below a compact way to express allowed moves for the knight
-		int x = row-this.knight.getX();
-		int y = col-this.knight.getY();
-
-		if (x!=0 && y!=0 && Math.abs(x)+Math.abs(y)==3) {
-			this.knight = new Pair<>(row,col);
-			return this.pawn.equals(this.knight);
-		}
-		return false;
+		this.knight=positionGenerator.moveKnight(row, col, this.knight);
+		return this.pawn.equals(this.knight);
 	}
 
 	@Override
 	public boolean hasKnight(int row, int col) {
 		return this.knight.equals(new Pair<>(row,col));
 	}
-
 
 	public Pair getKnightPosition(){
 		return new Pair(this.knight.getX(),this.knight.getY());

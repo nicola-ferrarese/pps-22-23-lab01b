@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * The test suite for testing the Exercise_1 implementation
  */
-public class e1Test {
-    private LogicsImpl Logic;
+public class LogicsTest {
+    LogicsImpl Logic;
 
     @BeforeEach
     void BeforeEach(){
