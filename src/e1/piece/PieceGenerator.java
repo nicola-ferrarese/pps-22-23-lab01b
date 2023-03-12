@@ -4,5 +4,7 @@ import e1.Pair;
 import e1.movements.Moves;
 
 public interface PieceGenerator {
-    Piece createPiece(Pair position, PieceType type, Moves moves);
+    Piece createPawn(Pair position);
+
+    Piece createKnight(Pair position);
 }
