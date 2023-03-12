@@ -5,8 +5,8 @@ import e1.movements.Moves;
 import java.util.Set;
 
 public class PieceImpl implements Piece{
-    private final Moves moves;
-    private final PieceType type;
+    Moves moves;
+    private PieceType type;
     private Pair position;
 
     public PieceImpl(Pair position, PieceType type, Moves moves) {
@@ -31,8 +31,10 @@ public class PieceImpl implements Piece{
     }
 
     @Override
-    public Set<Pair<Integer, Integer>> getPossibleMoves(int boardSize) {
-        return this.moves.getPossibleMoves(this.position, boardSize);
+    public Boolean canMove(Piece piece, Pair end, int boardSize) {
+        if(this.moves.getPossibleMoves(piece.getPosition(), boardSize).contains(end)){
+            return true;
+        }
+        return false;
     }
-
 }

@@ -11,5 +11,5 @@ public interface Piece {
 
     PieceType getType();
 
-    Set<Pair<Integer, Integer>> getPossibleMoves(int boardSize);
+    Boolean canMove(Piece piece, Pair end, int boardSize);
 }

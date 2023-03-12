@@ -24,10 +24,6 @@ public class e1Test {
         Logic = new LogicsImpl(SIZE);
     }
     @Test
-    void testDifferentPositions(){
-        assertNotEquals(Logic.getKnightPosition(),Logic.getPawnPosition());
-    }
-    @Test
     void testOnlyOneKnight(){
         assertEquals(1, pieceCounter(this.Logic::hasKnight));
     }

@@ -20,9 +20,11 @@ public class KnightMoves implements Moves {
         // Generate all possible pairs and add them to the set
         for (int row : xRange) {
             for (int col : yRange) {
-                if ((Math.abs(row) == (Math.abs(col))) ||
-                    (row < 0 || col <0) ||
-                    (row >= boardSize || col >= boardSize)){ continue; }
+                if ((Math.abs(row-x) == (Math.abs(col-y))) ||
+                    (row < 0 || col < 0) ||
+                    (row >= boardSize || col >= boardSize)){
+                    continue;
+                    }
                 pairsSet.add(new Pair<>(row, col));
             }
         }
