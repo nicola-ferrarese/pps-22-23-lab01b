@@ -6,5 +6,4 @@ import java.util.Set;
 
 public interface Moves {
     Set<Pair<Integer, Integer>> getPossibleMoves(Pair position, int boardSize);
-
 }
