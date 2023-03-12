@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,38 +27,24 @@ public class e1Test {
     }
     @Test
     void testOnlyOneKnight(){
-        List<Pair<Integer, Integer>> allPositions = new ArrayList<>();
-        for (var i = 0; i < BOARD_SIZE; i++) {
-            for (var y = 0; y < BOARD_SIZE; y++) {
-                allPositions.add(new Pair<>(i, y));
-            }
-        }
-        int count = 0;
-        for (Pair<Integer, Integer> p : allPositions) {
-            boolean hasKnight = this.Logic.hasKnight(p.getX(), p.getY());
-            if (hasKnight){
-                count++;
-            }
-        }
-        assertEquals(1, count);
+        assertEquals(1, pieceCounter(this.Logic::hasKnight));
     }
     @Test
     void testOnlyOnePawn(){
+        assertEquals(1, pieceCounter(this.Logic::hasPawn));
+    }
+
+    private long pieceCounter(BiFunction<Integer, Integer, Boolean> piece){
         List<Pair<Integer, Integer>> allPositions = new ArrayList<>();
         for (var i = 0; i < BOARD_SIZE; i++) {
             for (var y = 0; y < BOARD_SIZE; y++) {
                 allPositions.add(new Pair<>(i, y));
             }
         }
-        int count = 0;
-        for (Pair<Integer, Integer> p : allPositions) {
-            boolean hasPawn = this.Logic.hasPawn(p.getX(), p.getY());
-            if (hasPawn){
-                count++;
-            }
-        }
-        assertEquals(1, count);
+        return allPositions.stream()
+                    .map(p -> piece.apply(p.getX(),p.getY()))
+                    .filter(Boolean::booleanValue)
+                    .count();
     }
-
 
 }
