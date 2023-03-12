@@ -1,6 +1,8 @@
 package e1.movement;
 
 import e1.Pair;
+import e1.movements.KnightMoves;
+import e1.movements.Moves;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
@@ -12,7 +14,7 @@ public class KnightMoveTest {
 
     public static final int SIZE = 5;
 
-    private final Move moves= new KnightMove() {
+    private final Moves moves= new KnightMoves() {
     };
 
     @Test
