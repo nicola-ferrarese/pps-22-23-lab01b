@@ -1,7 +1,11 @@
+import e1.Pair;
 import org.junit.jupiter.api.BeforeEach;
 
 import e1.LogicsImpl;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,27 +14,50 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class e1Test {
     private LogicsImpl Logic;
-
+    private final int BOARD_SIZE = 4;
     @BeforeEach
-    void BeforeEach(){
+    void beforeEach(){
         int SIZE = 5;
         Logic = new LogicsImpl(SIZE);
     }
     @Test
-    void TestDifferentPositions(){
+    void testDifferentPositions(){
         assertNotEquals(Logic.getKnightPosition(),Logic.getPawnPosition());
     }
     @Test
-    void TestHit(){
-        Logic.setKnightPosition(0,0);
-        Logic.setPawnPosition(2,1);
-        assertTrue(Logic.hit(2,1));
+    void testOnlyOneKnight(){
+        List<Pair<Integer, Integer>> allPositions = new ArrayList<>();
+        for (var i = 0; i < BOARD_SIZE; i++) {
+            for (var y = 0; y < BOARD_SIZE; y++) {
+                allPositions.add(new Pair<>(i, y));
+            }
+        }
+        int count = 0;
+        for (Pair<Integer, Integer> p : allPositions) {
+            boolean hasKnight = this.Logic.hasKnight(p.getX(), p.getY());
+            if (hasKnight){
+                count++;
+            }
+        }
+        assertEquals(1, count);
     }
     @Test
-    void TestMove(){
-        Logic.setKnightPosition(0,0);
-        Logic.setPawnPosition(5,5);
-        assertFalse(Logic.hit(2,1));
+    void testOnlyOnePawn(){
+        List<Pair<Integer, Integer>> allPositions = new ArrayList<>();
+        for (var i = 0; i < BOARD_SIZE; i++) {
+            for (var y = 0; y < BOARD_SIZE; y++) {
+                allPositions.add(new Pair<>(i, y));
+            }
+        }
+        int count = 0;
+        for (Pair<Integer, Integer> p : allPositions) {
+            boolean hasPawn = this.Logic.hasPawn(p.getX(), p.getY());
+            if (hasPawn){
+                count++;
+            }
+        }
+        assertEquals(1, count);
     }
+
 
 }
