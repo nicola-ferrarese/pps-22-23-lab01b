@@ -1,3 +1,5 @@
+package e1;
+
 import e1.Pair;
 import org.junit.jupiter.api.BeforeEach;
 
